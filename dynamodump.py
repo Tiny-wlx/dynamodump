@@ -670,22 +670,23 @@ def do_restore(dynamo, sleep_interval, source_table, destination_table, write_ca
                      str(write_capacity))
 
         while True:
-            try:
-                dynamo.create_table(table_attribute_definitions, table_table_name, table_key_schema,
-                                    table_provisioned_throughput, table_local_secondary_indexes,
-                                    table_global_secondary_indexes)
-                break
-            except boto.exception.JSONResponseError as e:
-                if e.body["__type"] == "com.amazonaws.dynamodb.v20120810#LimitExceededException":
-                    logging.info("Limit exceeded, retrying creation of " + destination_table + "..")
-                    time.sleep(sleep_interval)
-                elif e.body["__type"] == "com.amazon.coral.availability#ThrottlingException":
-                    logging.info("Control plane limit exceeded, "
-                                 "retrying creation of " + destination_table + "..")
-                    time.sleep(sleep_interval)
-                else:
-                    logging.exception(e)
-                    sys.exit(1)
+            break
+#             try:
+#                 dynamo.create_table(table_attribute_definitions, table_table_name, table_key_schema,
+#                                     table_provisioned_throughput, table_local_secondary_indexes,
+#                                     table_global_secondary_indexes)
+#                 break
+#             except boto.exception.JSONResponseError as e:
+#                 if e.body["__type"] == "com.amazonaws.dynamodb.v20120810#LimitExceededException":
+#                     logging.info("Limit exceeded, retrying creation of " + destination_table + "..")
+#                     time.sleep(sleep_interval)
+#                 elif e.body["__type"] == "com.amazon.coral.availability#ThrottlingException":
+#                     logging.info("Control plane limit exceeded, "
+#                                  "retrying creation of " + destination_table + "..")
+#                     time.sleep(sleep_interval)
+#                 else:
+#                     logging.exception(e)
+#                     sys.exit(1)
 
         # wait for table creation completion
         wait_for_active_table(dynamo, destination_table, "created")
