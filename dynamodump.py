@@ -350,6 +350,7 @@ def delete_table(conn, sleep_interval, table_name):
     """
     Delete table table_name
     """
+    return
 
     if not args.dataOnly:
         while True:
