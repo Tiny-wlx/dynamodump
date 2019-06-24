@@ -689,7 +689,7 @@ def do_restore(dynamo, sleep_interval, source_table, destination_table, write_ca
 #                     sys.exit(1)
 
         # wait for table creation completion
-        wait_for_active_table(dynamo, destination_table, "created")
+#         wait_for_active_table(dynamo, destination_table, "created")
     else:
         # update provisioned capacity
         if int(write_capacity) > original_write_capacity:
