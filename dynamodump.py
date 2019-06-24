@@ -481,6 +481,8 @@ def do_empty(dynamo, table_name):
     """
     Empty table named table_name
     """
+    
+    return
 
     logging.info("Starting Empty for " + table_name + "..")
 
